@@ -28,10 +28,11 @@ module.exports = {
         async createPost(_, { body }, context) {
             const user = checkAuth(context);
             if (body.trim() === '') {
-                throw new Error('Post body must br empty');
+                throw new Error('Post body must be empty');
             }
             const newPost = new Post({
-                body, user: user.id,
+                body,
+                user: user.id,
                 username: user.username,
                 createdAt: new Date().toISOString(),
             });

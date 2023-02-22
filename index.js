@@ -2,10 +2,11 @@ const { ApolloServer } = require('apollo-server-express');
 const db = require("./config/connection");
 const { PubSub }  = require(`@google-cloud/pubsub`);
 const pubsub = new PubSub();
+const express = require('express');
 
 const typeDefs = require('./schema/typeDefs');
 const resolvers = require('./schema/resolvers')
-
+const app = express();
 const PORT = process.env.PORT || 5000;
 
 const server = new ApolloServer({
@@ -13,6 +14,10 @@ const server = new ApolloServer({
     resolvers,
     context: ({ req }) => ({ req, pubsub }),
 });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(routes);
 
 db.once("open", () => {
     app.listen(PORT, () => {

@@ -36,6 +36,7 @@ module.exports = {
             };
         },
         async register(_, { registerInput: { username, email, password, confirmPassword } }) {
+            const { errors, valid } = validateRegisterInput(username, email, password, confirmPassword);
             if (!valid) {
                 throw new UserInputError('Errors', { errors });
             }
@@ -50,7 +51,10 @@ module.exports = {
             }
             password = await bcrypt.hash(password, 12);
             const newUser = new User({
-                email, username, password, createdAt: new Date().toISOString(),
+                email,
+                username,
+                password,
+                createdAt: new Date().toISOString(),
             });
 
             const res = await newUser.save();

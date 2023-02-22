@@ -21,6 +21,7 @@
   "homepage": "https://github.com/saubby/Frizty#readme",
   "dependencies": {
     "@google-cloud/pubsub": "^3.3.0",
+    "apollo-server": "^3.11.1",
     "apollo-server-express": "^3.11.1",
     "bcryptjs": "^2.4.3",
     "google-gax": "^3.5.7",
