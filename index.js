@@ -1,22 +1,17 @@
-const { ApolloServer } = require('apollo-server');
-const gql = require('graphql-tag');
+const { ApolloServer } = require('apollo-server-express');
 const db = require("./config/connection");
-// const typeDefs = gql`
-//     type Query{
-//         sayHi: String!
-//     }
-// `;
+const { PubSub }  = require(`@google-cloud/pubsub`);
+const pubsub = new PubSub();
 
-// const resolvers = {
-//     Querry: {
-//         sayHi: () => 'Hello World!'
-//     }
-// };
-const PORT = process.env.PORT || 3001;
+const typeDefs = require('./schema/typeDefs');
+const resolvers = require('./schema/resolvers')
+
+const PORT = process.env.PORT || 5000;
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req }) => ({ req, pubsub }),
 });
 
 db.once("open", () => {
