@@ -14,7 +14,7 @@ const server = new ApolloServer({
     resolvers,
     context: ({ req }) => ({ req, pubsub }),
 });
-
+const routes = require("./client/src/App");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
