@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
+//let { BrowserRouter as Router } = require('react-router-dom');
 import 'semantic-ui-css/semantic.min.css';
 import { Container } from 'semantic-ui-react';
 import './App.css';
